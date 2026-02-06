@@ -6,10 +6,9 @@ from calibration import *
 # Generate an Excel file with 24 rows and specific column headers
 
 filename = "reagent_data.xlsx"
-vials = int(input("How many vials would you like to use? \n"))
-file_length = vials + 2
 num_columns_to_read = 8
-def generate_excel(filename):
+
+def generate_excel(filename, rows=24):
     """
     Generate an Excel file with 9 columns and 24 rows.
     Columns:
@@ -46,8 +45,8 @@ def generate_excel(filename):
         "Naphthyamine": 7
     }
 
-    # Generate 24 rows of random data
-    for _ in range(24):
+    # Generate rows of random data
+    for _ in range(rows):
         reagent1 = random.choice(reagents)
         reagent2 = random.choice(reagents)
         volume1 = round(random.uniform(0.5, 3.5), 1)
@@ -89,22 +88,25 @@ def read_values_from_columns(sheet, num_columns, file_length):
     return volumes
 
 #assigning columns to values
-def data_change():
-    R1_Name = column_data[0]
-    R1 = column_data[1]
-    V1 = column_data [2]
-    V_Nitrite = column_data[3]
-    R2_Name = column_data[4]
-    R2 = column_data[5]
-    V2 = column_data[6]
-    V_NaOH = column_data[7]
+def data_change(column_data):
+    return {
+        "R1_Name": column_data[0],
+        "R1": column_data[1],
+        "V1": column_data[2],
+        "V_Nitrite": column_data[3],
+        "R2_Name": column_data[4],
+        "R2": column_data[5],
+        "V2": column_data[6],
+        "V_NaOH": column_data[7],
+    }
 
-generate_excel(filename)
+def load_reagent_data(vials, filename=filename, generate=True):
+    file_length = vials + 2
+    if generate:
+        generate_excel(filename, rows=vials)
 
-workbook = load_workbook(filename)
-sheet = workbook["Reagent Data"]
-
-column_data = read_values_from_columns(sheet, num_columns_to_read, file_length)
-data_change()
-
+    workbook = load_workbook(filename)
+    sheet = workbook["Reagent Data"]
+    column_data = read_values_from_columns(sheet, num_columns_to_read, file_length)
+    return data_change(column_data)
 
