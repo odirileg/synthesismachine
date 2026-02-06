@@ -1,4 +1,8 @@
-import pyfirmata
+import inspect
+if not hasattr(inspect, "getargspec"):
+    inspect.getargspec = inspect.getfullargspec
+
+import pyfirmata2 as pyfirmata
 import time
 
 port = '/dev/tty.usbserial-1420'

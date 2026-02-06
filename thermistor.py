@@ -1,10 +1,14 @@
-from pyfirmata import Arduino, util
+import inspect
+if not hasattr(inspect, "getargspec"):
+    inspect.getargspec = inspect.getfullargspec
+
+import pyfirmata2 as pyfirmata
 import time
 import math  # For temperature conversion
 
 # Define Arduino port (Change for Linux/Mac: '/dev/ttyUSBx')
-board = Arduino('/dev/tty.usbserial-1410')
-it = util.Iterator(board)
+board = pyfirmata.Arduino('/dev/tty.usbserial-1410')
+it = pyfirmata.util.Iterator(board)
 it.start()
 
 # Define the analog pin where the thermistor is connected

@@ -1,9 +1,14 @@
-import pyfirmata
+import inspect
+if not hasattr(inspect, "getargspec"):
+    inspect.getargspec = inspect.getfullargspec
+
+
+import pyfirmata2 as pyfirmata
 import time
 
-port = input("port number /dev/...: ")
+port = '/dev/tty.usbserial-110'
 
-board = pyfirmata.Arduino(f"/dev/{port}")
+board = pyfirmata.Arduino(port)
 it = pyfirmata.util.Iterator(board)
 it.start()
 

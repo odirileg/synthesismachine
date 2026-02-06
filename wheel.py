@@ -1,4 +1,8 @@
-import pyfirmata 
+import inspect
+if not hasattr(inspect, "getargspec"):
+    inspect.getargspec = inspect.getfullargspec
+
+import pyfirmata2 as pyfirmata 
 import time 
 from calibration import *
 
@@ -138,4 +142,3 @@ def home():
 
 def stir(speed, time):
     pass
-

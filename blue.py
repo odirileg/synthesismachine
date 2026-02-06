@@ -1,5 +1,9 @@
 #from pynput.keyboard import Listener
-import pyfirmata
+import inspect
+if not hasattr(inspect, "getargspec"):
+    inspect.getargspec = inspect.getfullargspec
+
+import pyfirmata2 as pyfirmata
 from time import sleep
 #import serial.tools.list_ports
 
